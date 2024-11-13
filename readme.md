@@ -1,6 +1,3 @@
-Here’s a `README.md` for your LeapVPN project:
-
-```markdown
 # LeapVPN
 
 LeapVPN is a free and open-source VPN application for Android, designed for privacy and security. It is based on the [Leaf](https://github.com/eycorsican/leaf) project and integrates with [Noisy Shuttle](https://github.com/Gowee/noisy-shuttle) for enhanced anonymity and network traffic protection. LeapVPN is lightweight and simple to use, providing secure internet access for users worldwide.
@@ -65,11 +62,4 @@ LeapVPN is licensed under the [Apache License 2.0](#Apache-2.0-1-ov-file).
 
 ## Contact
 
-For questions or feedback, feel free to open an issue on the [GitHub repository](https://github.com/yourusername/leapvpn/issues) or contact us directly.
-
----
-
-Thank you for using LeapVPN! Stay safe and enjoy secure internet browsing.
-```
-
-Let me know if you want to adjust or add any specific details!
+For questions or feedback, feel free to open an issue on the [GitHub repository](https://github.com/LeapVPN/leapvpn/issues) or contact us directly.
