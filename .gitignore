@@ -1,0 +1,70 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Android Studio / IntelliJ IDEA
+/.idea/
+*.iml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/dictionaries
+.idea/misc.xml
+
+# Gradle files
+.gradle/
+build/
+*/build/
+
+# 本地配置文件
+local.properties
+*.log
+
+# Android 构建和生成文件
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+out/
+
+# NDK
+obj/
+.externalNativeBuild/
+.cxx/
+
+# macOS 系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows 系统文件
+Thumbs.db
+ehthumbs.db
+
+# Keystore 文件（发布密钥）
+*.jks
+*.keystore
+*.pepk
+
+# 其他
+google-services.json
+firebase-debug.log
+crashlytics-build.properties
+*.so

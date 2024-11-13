@@ -1,0 +1,75 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- 背景渐变保持不变 -->
+    <path
+        android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="108"
+                android:endY="108"
+                android:startX="0"
+                android:startY="0"
+                android:type="linear">
+                <item
+                    android:color="#FFB8D4FF"
+                    android:offset="0.0" />
+                <item
+                    android:color="#FFD4C6FF"
+                    android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 云朵1 - 大型标准云朵 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M15,45 
+        A8,8 0 0,1 23,37
+        A10,10 0 0,1 33,27
+        A12,12 0 0,1 45,39
+        A8,8 0 0,1 53,47
+        L23,47
+        A8,8 0 0,1 15,45"
+        android:fillAlpha="0.9"/>
+
+    <!-- 云朵2 - 中型云朵 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M55,65
+        A6,6 0 0,1 61,59
+        A8,8 0 0,1 69,51
+        A10,10 0 0,1 79,61
+        A6,6 0 0,1 85,67
+        L61,67
+        A6,6 0 0,1 55,65"
+        android:fillAlpha="0.85"/>
+
+    <!-- 云朵3 - 小型云朵 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M75,35
+        A4,4 0 0,1 79,31
+        A6,6 0 0,1 85,25
+        A7,7 0 0,1 92,32
+        A4,4 0 0,1 96,36
+        L79,36
+        A4,4 0 0,1 75,35"
+        android:fillAlpha="0.8"/>
+
+    <!-- 云朵4 - 最小云朵 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M25,75
+        A3,3 0 0,1 28,72
+        A5,5 0 0,1 33,67
+        A6,6 0 0,1 39,73
+        A3,3 0 0,1 42,76
+        L28,76
+        A3,3 0 0,1 25,75"
+        android:fillAlpha="0.75"/>
+</vector>

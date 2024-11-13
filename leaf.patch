@@ -1,0 +1,53 @@
+diff --git a/leaf-ffi/Cargo.toml b/leaf-ffi/Cargo.toml
+index 73e657d..a1e6c41 100644
+--- a/leaf-ffi/Cargo.toml
++++ b/leaf-ffi/Cargo.toml
+@@ -34,3 +34,4 @@ auto-reload = ["leaf/auto-reload"]
+ 
+ [dependencies]
+ leaf = { path = "../leaf", default-features = false, optional = true }
++jni = { version = "0.21.1", default-features = false }
+diff --git a/leaf-ffi/src/lib.rs b/leaf-ffi/src/lib.rs
+index 27584f5..82a26d3 100644
+--- a/leaf-ffi/src/lib.rs
++++ b/leaf-ffi/src/lib.rs
+@@ -164,3 +164,39 @@ pub extern "C" fn leaf_test_config(config_path: *const c_char) -> i32 {
+         ERR_CONFIG_PATH
+     }
+ }
++
++use jni::{
++    objects::{JClass, JString},
++    JNIEnv,
++};
++
++#[allow(non_snake_case)]
++#[no_mangle]
++pub unsafe extern "C" fn Java_org_leap_vpn_LeafVpnService_runLeaf(
++    mut env: JNIEnv,
++    _: JClass,
++    config_path: JString,
++) {
++    let config_path = env
++        .get_string(&config_path)
++        .unwrap()
++        .to_str()
++        .unwrap()
++        .to_owned();
++    let opts = leaf::StartOptions {
++        config: leaf::Config::File(config_path),
++        #[cfg(feature = "auto-reload")]
++        auto_reload: false,
++        runtime_opt: leaf::RuntimeOption::SingleThread,
++    };
++    leaf::start(0, opts).unwrap();
++}
++
++#[allow(non_snake_case)]
++#[no_mangle]
++pub unsafe extern "C" fn Java_org_leap_vpn_LeafVpnService_stopLeaf(
++    _: JNIEnv,
++    _: JClass,
++) {
++    leaf::shutdown(0);
++}

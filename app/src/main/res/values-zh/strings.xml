@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">LeapVPN</string>
+    <string name="connect">连接</string>
+    <string name="disconnect">断开</string>
+    <string name="connect_button_text">连接</string>
+    <string name="theme_toggle_description">切换主题模式</string>
+    <string name="connected">已连接</string>
+    <string name="disconnected">未连接</string>
+    <string name="connecting">连接中...</string>
+</resources>
