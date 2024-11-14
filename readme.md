@@ -52,7 +52,7 @@ We welcome contributions to LeapVPN! If you want to help, please fork the reposi
 
 ## License
 
-LeapVPN is licensed under the [Apache License 2.0](#Apache-2.0-1-ov-file).
+LeapVPN is licensed under the [GPL-3.0 License](#GPL-3.0-1-ov-file).
 
 ## Acknowledgments
 
