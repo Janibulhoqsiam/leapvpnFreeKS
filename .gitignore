@@ -68,3 +68,4 @@ google-services.json
 firebase-debug.log
 crashlytics-build.properties
 *.so
+*.aar
