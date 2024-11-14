@@ -34,6 +34,8 @@ To get started with LeapVPN, follow these steps:
 
 2. **Build the Application**
 
+   Build AndroidLibV2rayLite and copy the aar and so files to the libs folder.
+
    Use Android Studio or the following commands to build the application:
 
    ```bash
