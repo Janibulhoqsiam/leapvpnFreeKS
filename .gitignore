@@ -66,3 +66,4 @@ firebase-debug.log
 crashlytics-build.properties
 *.so
 *.aar
+.vscode/
