@@ -16,7 +16,6 @@ local.properties
 
 # Android Studio / IntelliJ IDEA
 /.idea/
-*.iml
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/gradle.xml
@@ -29,7 +28,6 @@ build/
 */build/
 
 # 本地配置文件
-local.properties
 *.log
 
 # Android 构建和生成文件
@@ -48,7 +46,6 @@ obj/
 .cxx/
 
 # macOS 系统文件
-.DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100
