@@ -19,26 +19,11 @@
   },
   "inbounds": [{
     "tag": "socks",
-    "port": 10808,
+    "port": 22222,
     "protocol": "socks",
     "settings": {
       "auth": "noauth",
       "udp": true,
-      "userLevel": 8
-    },
-    "sniffing": {
-      "enabled": true,
-      "destOverride": [
-        "http",
-        "tls"
-      ]
-    }
-  },
-  {
-    "tag": "http",
-    "port": 10809,
-    "protocol": "http",
-    "settings": {
       "userLevel": 8
     }
   }
