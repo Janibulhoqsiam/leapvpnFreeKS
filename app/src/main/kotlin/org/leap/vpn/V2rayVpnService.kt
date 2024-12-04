@@ -547,7 +547,7 @@ class V2rayVpnService : VpnService(),ServiceControl {
         super.onRevoke()
         // Send disconnected state
         sendStateUpdate("disconnected")
-        // 当系统VPN连接被中断时，清理所有资源
+        // Clean up all resources when the system VPN connection is interrupted
         stopVpn()
     }
 }
