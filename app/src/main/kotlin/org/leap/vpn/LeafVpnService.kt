@@ -160,7 +160,7 @@ class LeafVpnService : VpnService() {
             pb.redirectErrorStream(true)
             nsProcess = pb.start()
 
-            // 使用协程替代Thread读取输出
+            // Use coroutine instead of Thread to read output
             serviceScope.launch {
                 try {
                     withContext(Dispatchers.IO) {
@@ -195,7 +195,6 @@ class LeafVpnService : VpnService() {
         sendStateUpdate("connecting")
         startExecutable("client", "127.0.0.1:22222", "11.22.33.44:443", "www.apple.com", "12345678")
 
-        // 使用协程替代Thread
         serviceJob = serviceScope.launch {
             val builder = Builder()
             try {
@@ -255,9 +254,9 @@ class LeafVpnService : VpnService() {
 
     override fun onRevoke() {
         super.onRevoke()
-        // 发送断开连接状态
+        // Send disconnected state
         sendStateUpdate("disconnected")
-        // 当系统VPN连接被中断时，清理所有资源
+        // When the system VPN connection is interrupted, clean up all resources
         stopVpn()
     }
 }

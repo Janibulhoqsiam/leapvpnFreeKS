@@ -89,7 +89,7 @@
                 updateStatusText(isConnected)
             }
 
-            // 注册广播接收器
+            // Register the receiver
             registerReceiver(
                 vpnStateReceiver,
                 IntentFilter("leap_vpn.state_changed"),

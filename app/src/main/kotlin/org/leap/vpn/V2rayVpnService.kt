@@ -37,6 +37,8 @@ import libv2ray.Libv2ray
 import libv2ray.V2RayPoint
 import libv2ray.V2RayVPNServiceSupportsSet
 import java.lang.ref.SoftReference
+import android.util.Base64
+import android.provider.Settings
 
 class V2rayVpnService : VpnService(),ServiceControl {
     private var bgThread: Thread? = null
@@ -51,11 +53,19 @@ class V2rayVpnService : VpnService(),ServiceControl {
                 ?: return context.getDir("assets", 0).absolutePath
             return extDir.absolutePath
         }
+        private fun getDeviceIdForXUDPBaseKey(): String {
+            val androidId = Settings.Secure.ANDROID_ID.toByteArray(Charsets.UTF_8)
+            return Base64.encodeToString(androidId.copyOf(32), Base64.NO_PADDING.or(Base64.URL_SAFE))
+        }
+
         var serviceControl: SoftReference<ServiceControl>? = null
             set(value) {
                 field = value
                 Seq.setContext(value?.get()?.getService()?.applicationContext)
                 Log.d(BuildConfig.APPLICATION_ID,userAssetPath(value?.get()?.getService()))
+                // for xray-core
+                // Libv2ray.initV2Env(userAssetPath(value?.get()?.getService()),getDeviceIdForXUDPBaseKey())
+                // for v2ray-core
                 Libv2ray.initV2Env(userAssetPath(value?.get()?.getService()))
             }
     }
@@ -535,9 +545,9 @@ class V2rayVpnService : VpnService(),ServiceControl {
 
     override fun onRevoke() {
         super.onRevoke()
-        // 发送断开连接状态
+        // Send disconnected state
         sendStateUpdate("disconnected")
-        // 当系统VPN连接被中断时，清理所有资源
+        // When the system VPN connection is interrupted, clean up all resources
         stopVpn()
     }
 }
