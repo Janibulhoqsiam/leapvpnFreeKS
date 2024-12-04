@@ -116,7 +116,7 @@
         private fun disconnect() {
             connectionRunnable?.let { connectionHandler.removeCallbacks(it) }
 
-            sendBroadcast(Intent("signal_stop_leaf"))
+            sendBroadcast(Intent("signal_stop_leap"))
 
             isConnected = false
             updateStatusText(false)

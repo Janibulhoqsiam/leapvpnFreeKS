@@ -160,7 +160,7 @@ class V2rayVpnService : VpnService(),ServiceControl {
 
         val builder = Builder()
         try {
-            builder.setSession("leaf")
+            builder.setSession("v2ray")
                 .setMtu(1500)
                 .addAddress("10.255.0.1", 24)
                 .addDnsServer("8.8.8.8")
@@ -267,7 +267,7 @@ class V2rayVpnService : VpnService(),ServiceControl {
 
     private val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent != null && "signal_stop_leaf" == intent.action) {
+            if (intent != null && "signal_stop_leap" == intent.action) {
                 stopVpn()
             }
         }
@@ -282,7 +282,7 @@ class V2rayVpnService : VpnService(),ServiceControl {
         V2rayVpnService.serviceControl = SoftReference(this)
 //        copyAssetsToUserAssetPath(this)
 
-        registerReceiver(broadcastReceiver, IntentFilter("signal_stop_leaf"), Context.RECEIVER_NOT_EXPORTED)
+        registerReceiver(broadcastReceiver, IntentFilter("signal_stop_leap"), Context.RECEIVER_NOT_EXPORTED)
 
         // Create notification channel for Android O and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -547,7 +547,7 @@ class V2rayVpnService : VpnService(),ServiceControl {
         super.onRevoke()
         // Send disconnected state
         sendStateUpdate("disconnected")
-        // When the system VPN connection is interrupted, clean up all resources
+        // 当系统VPN连接被中断时，清理所有资源
         stopVpn()
     }
 }

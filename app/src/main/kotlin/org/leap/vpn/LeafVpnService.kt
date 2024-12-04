@@ -94,7 +94,7 @@ class LeafVpnService : VpnService() {
 
     private val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent != null && "signal_stop_leaf" == intent.action) {
+            if (intent != null && "signal_stop_leap" == intent.action) {
                 stopVpn()
             }
         }
@@ -102,7 +102,7 @@ class LeafVpnService : VpnService() {
 
     override fun onCreate() {
         super.onCreate()
-        registerReceiver(broadcastReceiver, IntentFilter("signal_stop_leaf"), Context.RECEIVER_NOT_EXPORTED)
+        registerReceiver(broadcastReceiver, IntentFilter("signal_stop_leap"), Context.RECEIVER_NOT_EXPORTED)
 
         // Create notification channel for Android O and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
