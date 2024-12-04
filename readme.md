@@ -8,7 +8,7 @@ LeapVPN is a free and open-source VPN application for Android, designed for priv
 - **Privacy Focused**: Uses [Leaf](https://github.com/eycorsican/leaf) and [Noisy Shuttle](https://github.com/Gowee/noisy-shuttle) for enhanced privacy and traffic obfuscation, minimizing the risk of detection.
 - **Open Source**: Fully open-source and community-driven. Contributions are welcome to improve the project.
 - **Android Support**: Optimized for Android devices with easy-to-use interface.
-- **Enhanced Protocol Support**: Integrates [v2rayNG](https://github.com/2dust/v2rayNG) and [v2ray-core](https://github.com/v2fly/v2ray-core) for multiple VPN protocols, improving speed, reliability, and security.
+- **Enhanced Protocol Support**: Integrates [v2rayNG](https://github.com/2dust/v2rayNG) and [v2ray-core](https://github.com/v2fly/v2ray-core)/[xray-core](https://github.com/XTLS/Xray-core) for multiple VPN protocols, improving speed, reliability, and security.
 
 ## Dependencies
 
