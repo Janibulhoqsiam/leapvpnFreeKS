@@ -1,6 +1,6 @@
 # LeapVPN
 
-LeapVPN is a free and open-source VPN application for Android, designed for privacy and security. It is based on the [Leaf](https://github.com/eycorsican/leaf) project and integrates with [Noisy Shuttle](https://github.com/Gowee/noisy-shuttle) for enhanced anonymity and network traffic protection. Additionally, LeapVPN leverages the power of [v2rayNG](https://github.com/2dust/v2rayNG) and [v2ray-core](https://github.com/v2fly/v2ray-core) for robust VPN protocols and security features. LeapVPN is lightweight and simple to use, providing secure internet access for users worldwide.
+LeapVPN is a free and open-source VPN application for Android, designed for privacy and security. It is based on the [Leaf](https://github.com/eycorsican/leaf) project and integrates with [Noisy Shuttle](https://github.com/Gowee/noisy-shuttle) for enhanced anonymity and network traffic protection. Additionally, LeapVPN leverages the power of [v2rayNG](https://github.com/2dust/v2rayNG) and [v2ray-core](https://github.com/v2fly/v2ray-core)/[xray-core](https://github.com/XTLS/Xray-core) for robust VPN protocols and security features. LeapVPN is lightweight and simple to use, providing secure internet access for users worldwide.
 
 ## Features
 
@@ -17,7 +17,7 @@ LeapVPN relies on the following projects:
 - [Leaf](https://github.com/eycorsican/leaf): A lightweight VPN client supporting various protocols such as V2Ray, Shadowsocks, and WireGuard.
 - [Noisy Shuttle](https://github.com/Gowee/noisy-shuttle): A tool for creating noise traffic to obfuscate VPN traffic, making it harder to detect by deep packet inspection (DPI).
 - [v2rayNG](https://github.com/2dust/v2rayNG): A popular Android client for [V2Ray](https://github.com/v2fly/v2ray-core), which provides advanced traffic routing and obfuscation features.
-- [v2ray-core](https://github.com/v2fly/v2ray-core): The core library for V2Ray, offering secure, flexible, and scalable VPN protocols.
+- [v2ray-core](https://github.com/v2fly/v2ray-core)/[xray-core](https://github.com/XTLS/Xray-core): The core library for V2Ray, offering secure, flexible, and scalable VPN protocols.
 
 ## Installation
 
@@ -69,7 +69,7 @@ LeapVPN is licensed under the [GPL-3.0 License](https://opensource.org/licenses/
 
 - [Leaf](https://github.com/eycorsican/leaf) for providing the lightweight VPN framework.
 - [Noisy Shuttle](https://github.com/Gowee/noisy-shuttle) for assisting with obfuscating VPN traffic.
-- [v2rayNG](https://github.com/2dust/v2rayNG) and [v2ray-core](https://github.com/v2fly/v2ray-core) for enabling robust protocol support and advanced network traffic features.
+- [v2rayNG](https://github.com/2dust/v2rayNG), [xray-core](https://github.com/XTLS/Xray-core) and [v2ray-core](https://github.com/v2fly/v2ray-core) for enabling robust protocol support and advanced network traffic features.
 - The open-source community for their continuous contributions and improvements.
 
 ## Contact
