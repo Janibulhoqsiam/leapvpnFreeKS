@@ -23,7 +23,6 @@ cd noisy-shuttle
 
 git checkout v0.2.3
 
-cp ../buildns.sh ./
 cp ../rustls-patched-fix.patch ./rustls-patched
 cd rustls-patched
 git apply --check rustls-patched-fix.patch
