@@ -55,11 +55,43 @@ To get started with LeapVPN, follow these steps:
 
 LeapVPN supports multiple VPN protocols and offers the flexibility to switch between them. For advanced users, the app also supports configurations for custom VPN server settings.
 
+## Server Configuration Best Practices
+
+Setting up your own VPN server is crucial for optimal performance and security. Here are some best practices for configuring various backend servers:
+
+### Xray Server Configuration
+
+For Xray server setup, refer to the official documentation and examples:
+- [Xray-core Usage](https://github.com/XTLS/Xray-core?tab=readme-ov-file#usage)
+- VLESS-XTLS-uTLS-REALITY configuration is recommended for highest performance and security
+- XTLS Vision protocol provides excellent performance with enhanced obfuscation
+
+Example configuration paths can be found in the Xray GitHub repository under usage examples.
+
+### V2Ray Server Configuration
+
+For V2Ray server configuration, follow the guidelines at:
+- [V2Fly Configuration Overview](https://www.v2fly.org/config/overview.html)
+- Configure appropriate security levels based on your needs
+- Set proper log levels for troubleshooting (recommended: "warning" for production, "info" for debugging)
+
+### Noisy Shuttle Configuration
+
+To enhance traffic obfuscation and bypass deep packet inspection, configure Noisy Shuttle:
+
+```bash
+noisy-shuttle server 0.0.0.0:443 www.example.com:443 ${PASSWORD} -qq
+```
+
+Replace `${PASSWORD}` with your secure password and `www.example.com:443` with your destination server.
+
+Properly configured servers will significantly improve connection stability, reduce latency, and enhance security measures. We recommend regularly updating your server configurations to address emerging security vulnerabilities and take advantage of protocol improvements.
+
 ## Contributing
 
-We welcome contributions to LeapVPN! If you want to help improve the app, please fork the repository, create a branch, and submit a pull request with your changes. Whether it’s a bug fix, feature addition, or documentation improvement, your contributions are greatly appreciated.
+We welcome contributions to LeapVPN! If you want to help improve the app, please fork the repository, create a branch, and submit a pull request with your changes. Whether it's a bug fix, feature addition, or documentation improvement, your contributions are greatly appreciated.
 
-Before contributing, please ensure that your code follows the project’s style guide and includes appropriate tests if applicable.
+Before contributing, please ensure that your code follows the project's style guide and includes appropriate tests if applicable.
 
 ## License
 
