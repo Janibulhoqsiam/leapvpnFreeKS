@@ -12,86 +12,69 @@ jobs:
 
     env:
       ANDROID_SDK_ROOT: ${{ github.workspace }}/android-sdk
-      ANDROID_NDK_HOME: ${{ github.workspace }}/android-ndk
-      PATH: ${{ github.workspace }}/android-ndk/toolchains/llvm/prebuilt/linux-x86_64/bin:${{ github.workspace }}/.cargo/bin:$PATH
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    # --- Install core Linux utilities ---
+    - name: Install core Linux utilities
+      run: sudo apt-get update && sudo apt-get install -y tar unzip wget curl build-essential make
 
-      # --- Set up JDK ---
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: 17
+    # --- Checkout repository ---
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      # --- Install Go ---
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.25'
+    # --- Set up JDK ---
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: 17
 
-      # --- Install Android SDK & NDK ---
-      - name: Install Android SDK and NDK
-        uses: android-actions/setup-android@v2
-        with:
-          api-level: 33
-          ndk-version: 25.2.9519653
-          components: platform-tools,build-tools-33.0.2
+    # --- Install Go ---
+    - name: Install Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.25'
 
-      # --- Install required Linux tools ---
-      - name: Install Make & unzip
-        run: sudo apt-get update && sudo apt-get install -y make unzip wget curl git build-essential
+    # --- Install Android SDK & NDK ---
+    - name: Install Android SDK & NDK
+      uses: android-actions/setup-android@v2
+      with:
+        api-level: 33
+        ndk-version: 25.2.9519653
+        components: platform-tools,build-tools-33.0.2
 
-      # --- Install Rust and Android targets ---
-      - name: Setup Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
+    # --- Build AndroidLibV2rayLite for multiple ABIs ---
+    - name: Build AndroidLibV2rayLite
+      run: |
+        cd AndroidLibV2rayLite
+        go install golang.org/x/mobile/cmd/gomobile@latest
+        export PATH=$PATH:$HOME/go/bin
+        gomobile init
 
-      - name: Add Android targets for Rust
-        run: |
-          rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+        # Build for all target ABIs
+        ./buildjni.sh
 
-      # --- Build AndroidLibV2rayLite ---
-      - name: Build AndroidLibV2rayLite
-        run: |
-          cd AndroidLibV2rayLite
-          # Initialize gomobile
-          go install golang.org/x/mobile/cmd/gomobile@latest
-          export PATH=$PATH:$HOME/go/bin
-          gomobile init
-          # Run build script from main repo
-          cd ..
-          sh buildjni.sh
-          # Copy generated .aar and .so files to app/libs
-          mkdir -p app/libs
-          cp ./bin/AndroidLibV2rayLite.aar app/libs/ || true
-          cp ./obj/local/armeabi-v7a/*.so app/libs/ || true
+        cd ..
+        mkdir -p app/libs
 
-      # --- Build noisy-shuttle Rust binaries ---
-      - name: Build noisy-shuttle for Android
-        run: |
-          cd noisy-shuttle
-          export CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang
-          export CARGO_TARGET_ARMV7_LINUX_ANDROIDEABI_LINKER=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi21-clang
-          export CARGO_TARGET_I686_LINUX_ANDROID_LINKER=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android21-clang
-          export CARGO_TARGET_X86_64_LINUX_ANDROID_LINKER=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android21-clang
-          cargo build --release --target aarch64-linux-android
-          cargo build --release --target armv7-linux-androideabi
-          cargo build --release --target i686-linux-android
-          cargo build --release --target x86_64-linux-android
-          cd ..
+        # Copy AAR
+        cp AndroidLibV2rayLite/bin/AndroidLibV2rayLite.aar app/libs/
 
-      # --- Build APK ---
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug
+        # Copy all .so files from each ABI
+        ABIS=("armeabi-v7a" "arm64-v8a" "x86" "x86_64")
+        for ABI in "${ABIS[@]}"; do
+          if [ -d "AndroidLibV2rayLite/obj/local/$ABI" ]; then
+            cp AndroidLibV2rayLite/obj/local/$ABI/*.so app/libs/ || true
+          fi
+        done
 
-      # --- Upload artifact ---
-      - name: Upload Debug APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: leapvpn-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+    # --- Build APK ---
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug
+
+    # --- Upload artifact ---
+    - name: Upload Debug APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: leapvpn-debug-apk
+        path: app/build/outputs/apk/debug/app-debug.apk
