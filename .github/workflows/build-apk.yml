@@ -4,45 +4,64 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build:
-    name: Build APK
     runs-on: ubuntu-latest
 
+    env:
+      ANDROID_SDK_ROOT: ${{ github.workspace }}/android-sdk
+
     steps:
-      # Step 1: Checkout your repo
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      # Step 2: Set up JDK
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: 17
+    # --- Set up JDK ---
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: 17
 
-      # Step 3: Set up Gradle cache (optional but faster)
-      - name: Cache Gradle packages
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper/
-          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            gradle-${{ runner.os }}-
+    # --- Install required tools ---
+    - name: Install Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.25'
 
-      # Step 4: Build Debug APK
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug
+    - name: Install Android SDK Command line tools
+      uses: android-actions/setup-android@v2
+      with:
+        api-level: 33
+        ndk-version: 25.2.9519653
+        components: platform-tools,build-tools-33.0.2
 
-      # Step 5: Upload APK as artifact
-      - name: Upload Debug APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: leapvpn-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+    - name: Install Make & unzip
+      run: sudo apt-get update && sudo apt-get install -y make unzip wget
+
+    # --- Build AndroidLibV2rayLite ---
+    - name: Build AndroidLibV2rayLite
+      run: |
+        cd AndroidLibV2rayLite
+        # Initialize gomobile
+        go install golang.org/x/mobile/cmd/gomobile@latest
+        export PATH=$PATH:$HOME/go/bin
+        gomobile init
+        sh buildjni.sh
+        # Copy generated .aar and .so files to app/libs
+        mkdir -p ../app/libs
+        cp ./bin/AndroidLibV2rayLite.aar ../app/libs/
+        cp ./obj/local/armeabi-v7a/*.so ../app/libs/ || true
+        cd ..
+
+    # --- Build APK ---
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug
+
+    # --- Upload artifact ---
+    - name: Upload Debug APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: leapvpn-debug-apk
+        path: app/build/outputs/apk/debug/app-debug.apk
