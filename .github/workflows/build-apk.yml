@@ -53,6 +53,7 @@ jobs:
 
         # Build for all target ABIs
         cd ..
+        chmod +x buildjni.sh
         ./buildjni.sh
         
         mkdir -p app/libs
